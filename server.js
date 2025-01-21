@@ -13,14 +13,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Endpoint para realizar o ping
 app.get('/ping', (req, res) => {
-  ping.sys.probe(IP_ADDRESS, function (isAlive) {
-    if (isAlive) {
-      res.send(`RBK ESTÁ ONLINE`);
-    } else {
-      res.send(`RBK NÃO ESTÁ ONLINE.`);
-    }
+    console.log(`Pinging IP: ${IP_ADDRESS}`);
+    ping.sys.probe(IP_ADDRESS, function (isAlive) {
+      console.log(`Ping response: ${isAlive ? 'alive' : 'not alive'}`);
+      if (isAlive) {
+        res.send(`RBK ESTÁ ONLINE`);
+      } else {
+        res.send(`RBK NÃO ESTÁ ONLINE.`);
+      }
+    });
   });
-});
 
 // Inicia o servidor
 app.listen(PORT, () => {
