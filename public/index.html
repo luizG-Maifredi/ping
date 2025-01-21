@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pingar IP</title>
+    <script>
+        function pingIP() {
+            fetch('/ping')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("result").innerText = data;
+                })
+                .catch(error => {
+                    document.getElementById("result").innerText = "Erro ao fazer o ping.";
+                });
+        }
+
+        // Realiza o ping automaticamente a cada 15 segundos
+        window.onload = () => {
+            pingIP(); // Primeiro ping ao carregar a página
+            setInterval(pingIP, 15000); // Repite o ping a cada 15 segundos
+        };
+    </script>
+</head>
+<body>
+    <h1>Teste de Ping</h1>
+    <p id="result">Realizando o ping...</p>
+</body>
+</html>
